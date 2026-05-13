@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CompatControl pode ser aplicado a qualquer app -->
+    <string-array name="xposedscope">
+        <item>*</item>
+    </string-array>
+</resources>
