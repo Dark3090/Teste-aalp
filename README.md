@@ -13,6 +13,35 @@ App Android para controlar flags de compatibilidade por app via root (libsu) com
 
 ## Setup do GitHub Actions
 
+### 1. Gerar Keystore
+
+```bash
+keytool -genkey -v -keystore compatcontrol.jks \
+  -keyalg RSA -keysize 2048 -validity 10000 \
+  -alias compatcontrol
+```
+
+### 2. Converter pra Base64
+
+```bash
+# Linux/Mac
+base64 -i compatcontrol.jks | tr -d '\n'
+
+# Windows (PowerShell)
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("compatcontrol.jks"))
+```
+
+### 3. Adicionar Secrets no GitHub
+
+Vá em **Settings → Secrets and variables → Actions** e adicione:
+
+| Secret | Valor |
+|--------|-------|
+| `KEYSTORE_BASE64` | Output do comando base64 |
+| `KEYSTORE_PASSWORD` | Senha da keystore |
+| `KEY_ALIAS` | Alias da key (ex: `compatcontrol`) |
+| `KEY_PASSWORD` | Senha da key |
+
 ### 4. Push na main
 
 O APK é gerado automaticamente a cada push na branch `main` e fica disponível em:
